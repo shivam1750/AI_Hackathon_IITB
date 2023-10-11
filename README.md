@@ -48,7 +48,8 @@ Go to the Weatherbit website at **https://www.weatherbit.io/**.
 Click on the "Sign Up" or "Get Started" button on the Weatherbit website to create an account.
 3. **Generate API Key**:
 After logging in, you can generate an API key. Look for an option like "API Key" or "Generate API Key" in your account dashboard.
-
+4. **Get Your API Key**:
+Once you've selected a plan and completed any necessary steps, you will be provided with an API key. This key is essential for making API requests to Weatherbit services.
 
 
 
