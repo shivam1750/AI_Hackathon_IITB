@@ -62,13 +62,11 @@ Once you've selected a plan and completed any necessary steps, you will be provi
 
 
 # 🚩References :
-https://github.com/fetchai/uAgents
 
 
-https://www.weatherbit.io/
+[GitHub - fetchai/uAgents: A fast and lightweight framework for creating decentralized agents with ease.](https://github.com/fetchai/uAgents)
 
+[Weatherbit - Free Weather API](https://www.weatherbit.io/)
 
-https://www.youtube.com/watch?v=_0QX0HD-VD0&list=PL09jEkqdEp94fSWTjyK7PgvHRtp795KuH
+[Getting Started with AI Agents | Microagent Tutorial](https://www.youtube.com/watch?v=_0QX0HD-VD0&list=PL09jEkqdEp94fSWTjyK7PgvHRtp795KuH)
 
-
-https://docs.fetch.ai/uAgents/
