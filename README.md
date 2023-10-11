@@ -46,7 +46,8 @@ pip install -r requirements.txt
 Go to the Weatherbit website at **https://www.weatherbit.io/**.
 2. **Sign Up**:
 Click on the "Sign Up" or "Get Started" button on the Weatherbit website to create an account.
-
+3. **Generate API Key**:
+After logging in, you can generate an API key. Look for an option like "API Key" or "Generate API Key" in your account dashboard.
 
 
 
