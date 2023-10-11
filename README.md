@@ -51,8 +51,13 @@ After logging in, you can generate an API key. Look for an option like "API Key"
 4. **Get Your API Key**:
 Once you've selected a plan and completed any necessary steps, you will be provided with an API key. This key is essential for making API requests to Weatherbit services.
 
+ ```json
+    {
+    		"message": "Login successful!",
+    		"api_key": "YOUR_API_KEY"
+    }
+    ```
+    
 
 
-|-- README.md
-```
-# **💾 Installation :**
+# 🚩References :
