@@ -40,6 +40,12 @@ pip install -r requirements.txt
     - **`time`** module is part of the Python standard library and allows you to work with time-related functions.
     - tasks like scheduling temperature checks, setting alert intervals, or timing data collection.
 
+# ⛅🌨🌩Weatherbit API :
+
+1. **Visit the Weatherbit Website**:
+Go to the Weatherbit website at **https://www.weatherbit.io/**.
+2. **Sign Up**:
+Click on the "Sign Up" or "Get Started" button on the Weatherbit website to create an account.
 
 
 
