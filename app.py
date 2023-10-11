@@ -9,7 +9,7 @@ app.secret_key = 'k2open'  # Change this to a secret key for production
 
 # Weatherbit API key (replace with your own key)
 
-api_key = '2297b08ba295456ba1088f3eb8d4c1f4'
+api_key = 'your-weatherbit api key'
 
 # Initialize user settings
 user_location = ''
