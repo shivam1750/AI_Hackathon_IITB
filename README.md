@@ -18,6 +18,19 @@ my_project/
 |
 |-- private_keys.json
 |-- requirements.txt
+|-- requirements.txt
+|-- README.md
+```
+
+
+
+
+
+
+
+
+
+
 |-- README.md
 ```
 # **💾 Installation :**
