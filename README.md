@@ -63,6 +63,12 @@ Once you've selected a plan and completed any necessary steps, you will be provi
 
 # 🚩References :
 https://github.com/fetchai/uAgents
+
+
 https://www.weatherbit.io/
+
+
 https://www.youtube.com/watch?v=_0QX0HD-VD0&list=PL09jEkqdEp94fSWTjyK7PgvHRtp795KuH
+
+
 https://docs.fetch.ai/uAgents/
