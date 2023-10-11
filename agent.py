@@ -38,3 +38,38 @@ def fetch_temperature(location):
         # Handle JSON parsing errors or missing data in the API response
         print(f"JSON Parsing Error: {e}")
         return None
+
+# Function to send notifications
+async def send_notification(ctx, location, temperature, min_temp, max_temp):
+    if min_temp <= temperature <= max_temp:
+        message = f"Temperature in {location} is {temperature}°C (Normal)"
+    else:
+        message = f"Temperature in {location} is {temperature}°C (Alert)"
+    
+    await ctx.send(agent.address, TemperatureMessage(location=location, temperature=temperature))
+    ctx.logger.info(message)
+
+# Route to update user settings
+@uagent_app.route('/update_settings', methods=['POST'])
+def update_settings():
+    global user_location, user_min_temp, user_max_temp
+
+    data = request.json
+    user_location = data['location']
+    user_min_temp = data['min_temp']
+    user_max_temp = data['max_temp']
+
+    return jsonify({'message': 'Settings updated successfully'})
+
+# Function to periodically fetch temperature and send notifications
+@agent.on_interval(period=1.0)  # Fetch temperature every 1 minute
+async def check_temperature(ctx: Context):
+    location = user_location  # Use the global user_location
+    min_temp = user_min_temp  # Use the global user_min_temp
+    max_temp = user_max_temp  # Use the global user_max_temp
+    
+    temperature = fetch_temperature(location)
+    await send_notification(ctx, location, temperature, min_temp, max_temp)
+
+if __name__ == "__main__":
+    uagent_app.run(host='127.0.0.1', port=5000)    
