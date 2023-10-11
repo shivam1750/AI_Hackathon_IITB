@@ -30,7 +30,9 @@ pip install -r requirements.txt
     - ```https://docs.fetch.ai/uAgents/```
     - ```from uagents import Agent, Context, Model```
     - **`uagents`** Library: This line of code imports the **`Agent`**, **`Context`**, and **`Model`** classes from the **`uagents`** library.
-
+2. **Flask**:
+    - Flask is a lightweight web framework for building web applications in Python.
+    - Flask to create a web interface for your project, allowing users to interact with your temperature alert system through a browser.
 
 
 
