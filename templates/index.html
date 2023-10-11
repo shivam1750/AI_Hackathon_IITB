@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Alert</title>
+
+    <!-- Link to Bootstrap CSS via CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/css/bootstrap.min.css">
+
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    <!-- Include custom CSS for styling -->
+    <style>
+        /* Additional custom styles can be added here */
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .alert-message {
+            margin-top: 10px;
+        }
+
+        /* Snow animation for cold temperature */
+        .snowflake {
+            position: absolute;
+            font-size: 20px;
+            color: #fff;
+            animation: snowfall 5s linear infinite;
+        }
+
+        @keyframes snowfall {
+            0% {
+                transform: translateY(-10%);
+            }
+
+            100% {
+                transform: translateY(100%);
+            }
+        }
+
+        /* Fire animation for hot temperature */
+        .fire {
+            position: absolute;
+            font-size: 20px;
+            color: #ff5733;
+            animation: fire 2s linear infinite;
+        }
+
+        @keyframes fire {
+            0% {
+                transform: translateY(100%);
+            }
+
+            100% {
+                transform: translateY(10%);
+            }
+        }
+
+        /* Leaf animation for normal temperature */
+        .leaf {
+            position: absolute;
+            font-size: 20px;
+            color: #4CAF50;
+            animation: leaf 5s linear infinite;
+        }
+
+        @keyframes leaf {
+            0% {
+                transform: translateY(-10%);
+            }
+
+            100% {
+                transform: translateY(100%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="mt-4">Temperature Alert</h1>
+        <form method="POST" class="mt-4">
+            <div class="mb-3">
+                <label for="location" class="form-label">Location:</label>
+                <input type="text" id="location" name="location" value="{{ location }}" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="min_temp" class="form-label">Minimum Temperature (°C):</label>
+                <input type="number" id="min_temp" name="min_temp" value="{{ min_temp }}" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="max_temp" class="form-label">Maximum Temperature (°C):</label>
+                <input type="number" id="max_temp" name="max_temp" value="{{ max_temp }}" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Settings</button>
+        </form>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="alert alert-success mt-4">
+            <ul>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% endwith %}
+        <!-- This is a standard HTML comment -->
+
+        <!-- JavaScript for temperature alerts -->
+        <script>
+            // Function to show a notification
+            function showNotification(message) {
+                if ('Notification' in window) {
+                    // Check if the browser supports notifications
+                    if (Notification.permission === 'granted') {
+                        // Create a notification
+                        var notification = new Notification('Temperature Alert', {
+                            body: message,
+                            icon: 'path-to-your-notification-icon.png' // You can specify an icon if needed
+                        });
+
+                        // You can add an event handler for when the notification is clicked
+                        notification.onclick = function () {
+                            // Handle the click event, e.g., open a relevant page
+                        };
+                    } else if (Notification.permission !== 'denied') {
+                        // Request permission to show notifications
+                        Notification.requestPermission().then(function (permission) {
+                            if (permission === 'granted') {
+                                showNotification(message); // Show the notification if permission is granted
+                            }
+                        });
+                    }
+                }
+            }
+            // Function to check temperature and display alerts
+            function checkTemperature() {
+                // Get user inputs from the form
+                var location = document.getElementById("location").value;
+                var minTemp = parseFloat(document.getElementById("min_temp").value);
+                var maxTemp = parseFloat(document.getElementById("max_temp").value);
+
+                // Make an AJAX request to your Flask app to get the current temperature
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "/get_temperature?location=" + location, true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        var temperature = response.temperature;
+
+                        var alertMessage = "";
+
+                        // Check if temperature exceeds thresholds and display alerts
+                        if (temperature < minTemp) {
+                            alertMessage = `Temperature is below the minimum threshold! Current Temperature: ${temperature}°C`;
+                            showNotification(alertMessage);
+                            createSnowfall();
+                        } else if (temperature > maxTemp) {
+                            var diff = temperature - maxTemp;
+                            alertMessage = `Temperature is above the maximum threshold! Current Temperature: ${temperature}°C (Excess: ${diff}°C)`;
+                            showNotification(alertMessage);
+                            createFire();
+                        } else {
+                            var aboveThreshold = temperature - minTemp;
+                            var belowThreshold = minTemp - temperature;
+                            alertMessage = `Temperature is Normal! Current Temperature: ${temperature}°C`;
+
+                            if (aboveThreshold < belowThreshold) {
+                                alertMessage += ` (Above Threshold: ${aboveThreshold}°C)`;
+                            } else {
+                                alertMessage += ` (Below Threshold: ${belowThreshold}°C)`;
+                            }
+
+                            showNotification(alertMessage);
+                            createLeaf();
+                        }
+
+                        // Display the alert message
+                        alert(alertMessage);
+
+                        // Repeat the temperature check every 5 minutes (adjust as needed)
+                        setTimeout(checkTemperature, 30000); // 300000 milliseconds = 5 minutes
+                    }
+                };
+
+                xhr.send();
+            }
+
+            // Function to create snowfall effect
+            function createSnowfall() {
+                var snowflake = document.createElement("div");
+                snowflake.className = "snowflake";
+                snowflake.innerHTML = "❄";
+                document.body.appendChild(snowflake);
+            }
+
+            // Function to create fire effect
+            function createFire() {
+                var fire = document.createElement("div");
+                fire.className = "fire";
+                fire.innerHTML = "🔥";
+                document.body.appendChild(fire);
+            }
+
+            // Function to create leaf falling effect
+            function createLeaf() {
+                var leaf = document.createElement("div");
+                leaf.className = "leaf";
+                leaf.innerHTML = "🍃";
+                document.body.appendChild(leaf);
+            }
+
+            // Call the function to start checking temperature
+            checkTemperature();
+        </script>
+    </div>
+</body>
+
+</html>
