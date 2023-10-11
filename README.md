@@ -33,7 +33,9 @@ pip install -r requirements.txt
 2. **Flask**:
     - Flask is a lightweight web framework for building web applications in Python.
     - Flask to create a web interface for your project, allowing users to interact with your temperature alert system through a browser.
-
+3. **Requests**:
+    - **`requests`** library is used for making HTTP requests in Python.
+    - use it to communicate with external APIs, such as Weatherbit API for fetching weather data or other data sources relevant to your temperature monitoring.
 
 
 
