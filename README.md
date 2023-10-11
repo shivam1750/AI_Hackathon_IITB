@@ -15,3 +15,8 @@ my_project/
 |-- agent.py
 |
 |-- app.py
+|
+|-- private_keys.json
+|-- requirements.txt
+|-- README.md
+```
