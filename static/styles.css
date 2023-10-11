@@ -1,0 +1,35 @@
+/* styles.css */
+
+/* Override Bootstrap styles for input fields */
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Override Bootstrap styles for the submit button */
+input[type="submit"] {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Style the container for the avatar */
+.avatar-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Style the avatar image */
+.avatar-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #007BFF;
+}
+
+/* Add any additional custom styles here */
