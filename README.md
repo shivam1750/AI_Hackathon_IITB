@@ -36,6 +36,9 @@ pip install -r requirements.txt
 3. **Requests**:
     - **`requests`** library is used for making HTTP requests in Python.
     - use it to communicate with external APIs, such as Weatherbit API for fetching weather data or other data sources relevant to your temperature monitoring.
+4. **Time**:
+    - **`time`** module is part of the Python standard library and allows you to work with time-related functions.
+    - tasks like scheduling temperature checks, setting alert intervals, or timing data collection.
 
 
 
