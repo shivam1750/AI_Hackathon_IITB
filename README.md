@@ -23,7 +23,9 @@ my_project/
 ```
 # **💾 Installation :**
 Get started with uAgents by installing it for Python 3.8, 3.9, 3.10, or 3.11:
-
+```markdown
+pip install -r requirements.txt
+```
 
 
 
